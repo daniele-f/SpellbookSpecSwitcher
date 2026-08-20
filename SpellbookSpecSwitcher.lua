@@ -80,12 +80,16 @@ local function SwitchToSpec(specIndex)
     end
 end
 
-local function IsSpellbookPageVisible()
+local function IsSupportedPlayerSpellsPageVisible()
     if not PlayerSpellsFrame or not PlayerSpellsFrame:IsShown() then
         return false
     end
 
     if PlayerSpellsFrame.SpellBookFrame and PlayerSpellsFrame.SpellBookFrame:IsShown() then
+        return true
+    end
+
+    if PlayerSpellsFrame.TalentsFrame and PlayerSpellsFrame.TalentsFrame:IsShown() then
         return true
     end
 
@@ -310,7 +314,7 @@ local function UpdateButtons()
 
     LayoutButtons()
 
-    if IsSpellbookPageVisible() then
+    if IsSupportedPlayerSpellsPageVisible() then
         container:Show()
     else
         container:Hide()
@@ -344,6 +348,12 @@ local function TryHookPlayerSpellsFrame()
         PlayerSpellsFrame.SpellBookFrame:HookScript("OnShow", UpdateButtons)
         PlayerSpellsFrame.SpellBookFrame:HookScript("OnHide", UpdateButtons)
         PlayerSpellsFrame.SpellBookFrame.__SpellbookSpecSwitcherHooked = true
+    end
+
+    if PlayerSpellsFrame.TalentsFrame and not PlayerSpellsFrame.TalentsFrame.__SpellbookSpecSwitcherHooked then
+        PlayerSpellsFrame.TalentsFrame:HookScript("OnShow", UpdateButtons)
+        PlayerSpellsFrame.TalentsFrame:HookScript("OnHide", UpdateButtons)
+        PlayerSpellsFrame.TalentsFrame.__SpellbookSpecSwitcherHooked = true
     end
 end
 
