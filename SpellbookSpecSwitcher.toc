@@ -1,4 +1,4 @@
-## Interface: 120000, 120001, 120005
+## Interface: 120100
 ## Title: Spellbook Spec Switcher
 ## Notes: Adds specialization tabs to the right side of the spellbook.
 ## Author: BlueRaven
